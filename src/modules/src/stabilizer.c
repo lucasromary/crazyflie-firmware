@@ -275,7 +275,12 @@ static void stabilizerTask(void* param)
       
       commanderGetSetpoint(&setpoint, &state);
       compressSetpoint();
-
+      
+      motorsSetRation(MOTOR_M1, setpoint.pwm1);
+      motorsSetRation(MOTOR_M2, setpoint.pwm2);
+      motorsSetRation(MOTOR_M3, setpoint.pwm3);
+      motorsSetRation(MOTOR_M4, setpoint.pwm4);
+      
       sitAwUpdateSetpoint(&setpoint, &sensorData, &state);
 
       controller(&control, &setpoint, &sensorData, &state, tick);

@@ -344,27 +344,19 @@ static void fullStateDecoder(setpoint_t *setpoint, uint8_t type, const void *dat
  * Set the absolute postition and orientation
  */
  struct positionPacket_s {
-   float x;     // Position in m
-   float y;
-   float z;
-   float yaw;   // Orientation in degree
+   float pwm1;     // Position in m
+   float pwm2;
+   float pwm3;
+   float pwm4;   // Orientation in degree
  } __attribute__((packed));
 static void positionDecoder(setpoint_t *setpoint, uint8_t type, const void *data, size_t datalen)
 {
   const struct positionPacket_s *values = data;
 
-  setpoint->mode.x = modeAbs;
-  setpoint->mode.y = modeAbs;
-  setpoint->mode.z = modeAbs;
-
-  setpoint->position.x = values->x;
-  setpoint->position.y = values->y;
-  setpoint->position.z = values->z;
-
-
-  setpoint->mode.yaw = modeAbs;
-
-  setpoint->attitude.yaw = values->yaw;
+  setpoint->pwm1 = values->pwm1;
+  setpoint->pwm2 = values->pwm2;
+  setpoint->pwm3 = values->pwm3;
+  setpoint->pwm4 = values->pwm4;
 }
 
  /* ---===== 3 - packetDecoders array =====--- */
